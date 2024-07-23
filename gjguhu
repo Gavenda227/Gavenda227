@@ -1,0 +1,98 @@
+
+    public Student findStudenmajor(String smajor) {
+        Connection conn=null;                       
+        Statement stmt=null;                         
+        ResultSet rs=null;                         
+        String sql = "select *from student where smajor='" + smajor + "'";
+        Student s = null;
+        DBConn db = new DBConn();
+        conn = db.getConn();
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                s = new Student();
+                s.setSno(rs.getString("sno"));
+                s.setSname(rs.getString("sname"));
+                s.setSsex(rs.getString("ssex"));
+                s.setSethnix(rs.getString("sethnix"));
+                s.setShome(rs.getString("shome"));
+                s.setSyear(rs.getString("syear"));
+                s.setSmajor(rs.getString("smajor"));
+                s.setScollege(rs.getString("scollege"));
+                s.setSbirth(rs.getString("sbirth"));
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException ex3) {
+            ex3.printStackTrace();
+        }
+        return s;
+    }
+   
+    public Vector findStudentcollege(String scollege) {
+        Connection conn=null;                       
+        Statement stmt=null;                      
+        ResultSet rs=null;                          
+        Vector list = new Vector();
+        DBConn db = new DBConn();
+        conn = db.getConn();
+        String sql = "select *from student where scollege='" + scollege + "'";
+        Student s = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            int i = 0;
+            while (rs.next()) {
+                s = new Student();
+                s.setSno(rs.getString("sno"));
+                s.setSname(rs.getString("sname"));
+                s.setSsex(rs.getString("ssex"));
+                s.setSethnix(rs.getString("sethnix"));
+                s.setShome(rs.getString("shome"));
+                s.setSyear(rs.getString("syear"));
+                s.setSmajor(rs.getString("smajor"));
+                s.setScollege(rs.getString("scollege"));
+                s.setSbirth(rs.getString("sbirth"));
+                list.add(i,
+                        s.getSno() + " " + s.getSname() + " " + s.getSsex() + " " +
+                                s.getSethnix() + " " + s.getShome() + " " + s.getSyear() +
+                                " " + s.getSmajor() + " " + s.getScollege() + " " +
+                                s.getSbirth());
+                i++;
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception em) {
+            em.printStackTrace();
+            System.out.println("sql有错");
+        }
+        return list;
+    }
+
+    public Vector selectStudentcollege() {
+        Connection conn=null;                        
+        Statement stmt=null;                      
+        ResultSet rs=null;                          
+        DBConn db = new DBConn();
+        conn = db.getConn();
+        String sql = "select scollege from student";
+        Vector v = new Vector();
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                v.add(rs.getString("scollege"));
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception em) {
+            em.printStackTrace();
+            System.out.println("sql有错");
+        }
+        return v;
+    }
