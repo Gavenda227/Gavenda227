@@ -1,0 +1,15 @@
+BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+// 计算 1+2 的结果
+Integer sum = add.apply(1, 2);  
+UnaryOperator<Integer> square = x -> x * x;
+Integer result = square.apply(5);
+BinaryOperator<Integer> multiply = (a, b) -> a * b;
+Integer product = multiply.apply(5, 3); 
+public class MathOperations {
+    public static int multiplyByTwo(int i) {
+        return i * 2;
+    }
+}
+Function<Integer, Integer> timesTwo = MathOperations::multiplyByTwo;
+// 输出 10
+System.out.println(timesTwo.apply(5));  
